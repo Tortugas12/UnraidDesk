@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config xmlns:tools="http://schemas.android.com/tools">
+    <!--
+        Permit cleartext HTTP for user-opted LAN/VPN Unraid IP addresses (Android domain-config
+        cannot match CIDR ranges such as RFC 1918 or Tailscale 100.64.0.0/10) and the ephemeral
+        127.0.0.1 OAuth callback server. Public internet endpoints are strictly blocked at runtime
+        by LanVpnGuard / LanVpnInterceptor before any socket or HTTP call is opened.
+        Self-signed LAN HTTPS certs are verified explicitly via TofuTrustManager (SHA-256 pinning).
+    -->
+    <base-config
+        cleartextTrafficPermitted="true"
+        tools:ignore="InsecureBaseConfiguration">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
